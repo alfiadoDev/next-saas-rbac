@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "exports": {
-    "./base": "./base.json"
+    "./base": "./base.json",
+    "./node": "./node.json"
   }
 }
