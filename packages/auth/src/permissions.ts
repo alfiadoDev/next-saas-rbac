@@ -9,14 +9,21 @@ type PermissionsByRole = (
   builder: AbilityBuilder<AppAbility>,
 ) => void
 export const permissions: Record<Role, PermissionsByRole> = {
-  ADMIN: (_, { can }) => {
+  ADMIN: (user, { can, cannot }) => {
     can('manage', 'all')
+
+    cannot(['transfer_ownership', 'update'], 'Organization')
+    can(['transfer_ownership', 'update'], 'Organization', {
+      ownerId: { $eq: user.id },
+    })
   },
   MEMBER: (user, { can }) => {
-    // can('invite', 'User')
-    can(['create', 'get'], 'Project')
-    can(['create', 'delete'], 'Project', { ownerId: { $eq: user.id } })
+    can('get', 'User')
+    can('create', 'Project')
+    can(['update', 'delete'], 'Project', { ownerId: { $eq: user.id } })
   },
   // eslint-disable-next-line prettier/prettier
-  BILING: () => { },
+  BILING: (_, { can }) => {
+    can('manage', 'Billing')
+  },
 }
