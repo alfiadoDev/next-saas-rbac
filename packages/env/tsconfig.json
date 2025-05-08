@@ -1,0 +1,6 @@
+{
+  "extends": "@saas/tsconfig/base",
+  "include": [
+    "index.ts"
+  ]
+}
