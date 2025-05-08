@@ -5,6 +5,7 @@
   "license": "MIT",
   "exports": {
     "./base": "./base.json",
-    "./node": "./node.json"
+    "./node": "./node.json",
+    "./nextjs": "./nextjs.json"
   }
 }
