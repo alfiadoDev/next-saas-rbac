@@ -10,10 +10,7 @@ const signInSchema = z.object({
   password: z.string().min(6),
 })
 
-export async function signInWithEmailAndPassword(
-  previousState: unknown,
-  data: FormData,
-) {
+export async function signInWithEmailAndPassword(data: FormData) {
   const result = signInSchema.safeParse(Object.fromEntries(data))
   if (!result.success) {
     const errors = result.error.flatten().fieldErrors
