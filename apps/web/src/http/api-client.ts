@@ -9,7 +9,6 @@ export const api = ky.create({
         let cookieStore: CookiesFn | undefined
 
         if (typeof window === 'undefined') {
-          console.log('ola')
           const { cookies: serverCookies } = await import('next/headers')
 
           cookieStore = serverCookies
