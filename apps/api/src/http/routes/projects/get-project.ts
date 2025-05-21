@@ -28,6 +28,7 @@ export async function getProject(app: FastifyInstance) {
             200: z.object({
               project: z.object({
                 id: z.string().uuid(),
+                name: z.string(),
                 slug: z.string(),
                 avatarUrl: z.string().url().nullable(),
                 ownerId: z.string().uuid(),
@@ -56,6 +57,7 @@ export async function getProject(app: FastifyInstance) {
         const project = await prisma.project.findUnique({
           select: {
             id: true,
+            name: true,
             description: true,
             slug: true,
             ownerId: true,

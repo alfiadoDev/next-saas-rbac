@@ -27,6 +27,7 @@ export async function getProjects(app: FastifyInstance) {
               projects: z.array(
                 z.object({
                   id: z.string().uuid(),
+                  name: z.string(),
                   slug: z.string(),
                   avatarUrl: z.string().url().nullable(),
                   ownerId: z.string().uuid(),
@@ -59,6 +60,7 @@ export async function getProjects(app: FastifyInstance) {
         const projects = await prisma.project.findMany({
           select: {
             id: true,
+            name: true,
             description: true,
             slug: true,
             ownerId: true,
@@ -81,7 +83,7 @@ export async function getProjects(app: FastifyInstance) {
           },
         })
 
-        return reply.status(201).send({ projects })
+        return reply.status(200).send({ projects })
       },
     )
 }

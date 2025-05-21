@@ -3,6 +3,7 @@ import { api } from './api-client'
 interface GetProjectsResponse {
   projects: {
     id: string
+    name: string
     slug: string
     avatarUrl: string | null
     createdAt: string
