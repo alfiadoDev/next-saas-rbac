@@ -11,6 +11,7 @@ import { getMembership } from '@/http/get-membership'
 import { getOrganization } from '@/http/get-organization'
 
 import { removeMemberAction } from './actions'
+import { UpdateMemberRoleSelect } from './update-member-role-select'
 
 export async function MembersList() {
   const currentOrg = await getCurrentOrg()
@@ -75,12 +76,22 @@ export async function MembersList() {
                         </Button>
                       )}
 
+                    <UpdateMemberRoleSelect
+                      memberId={member.id}
+                      value={member.role}
+                      disabled={
+                        member.userId === memberShip.userId ||
+                        member.userId === organization.ownerId
+                      }
+                    />
+
                     {permissions?.can('delete', 'User') && (
                       <form action={removeMemberAction.bind(null, member.id)}>
                         <Button
                           disabled={
                             member.userId === memberShip.userId ||
-                            member.userId === organization.ownerId
+                            member.userId === organization.ownerId ||
+                            permissions?.cannot('update', 'User')
                           }
                           size="sm"
                           variant="destructive"
