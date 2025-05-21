@@ -9,12 +9,27 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from '@/hooks/use-form-state'
 
-import { createOrganizationAction } from '../create-organization/actions'
+import {
+  createOrganizationAction,
+  type OrganizationSchema,
+  updateOrganizationAction,
+} from './actions'
 
-export default function OrganizationForm() {
-  const [{ success, message, errors }, handleSubmit, isPending] = useFormState(
-    createOrganizationAction,
-  )
+interface OrganizationFormProps {
+  isUpdating?: boolean
+  initialData?: OrganizationSchema
+}
+
+export default function OrganizationForm({
+  isUpdating = false,
+  initialData,
+}: OrganizationFormProps) {
+  const formAction = isUpdating
+    ? updateOrganizationAction
+    : createOrganizationAction
+
+  const [{ success, message, errors }, handleSubmit, isPending] =
+    useFormState(formAction)
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
@@ -46,7 +61,7 @@ export default function OrganizationForm() {
 
       <div className="space-y-1">
         <Label htmlFor="name">Organization name</Label>
-        <Input name="name" id="name" />
+        <Input name="name" id="name" defaultValue={initialData?.name} />
         {errors?.name && (
           <p className="text-xs font-medium text-red-500 dark:text-red-400">
             {errors.name[0]}
@@ -62,6 +77,7 @@ export default function OrganizationForm() {
           id="domain"
           inputMode="url"
           placeholder="example.com"
+          defaultValue={initialData?.domain ?? undefined}
         />
         {errors?.domain && (
           <p className="text-xs font-medium text-red-500 dark:text-red-400">
@@ -76,6 +92,7 @@ export default function OrganizationForm() {
             name="shouldAttachUserByDomain"
             id="shouldAttachUserByDomain"
             className="translate-0.5"
+            defaultChecked={initialData?.shouldAttachUserByDomain}
           />
           <label htmlFor="shouldAttachUserByDomain" className="space-y-1">
             <span className="text-sm leading-none font-medium">
