@@ -5,6 +5,7 @@ import reactIcon from '@/assets/react.svg'
 import { ability } from '@/auth/auth'
 
 import { OrganizationSwitcher } from './organization-switcher'
+import { PendingInvites } from './pending-invites'
 import { ProfileButton } from './profile-button'
 import { ProjectSwitcher } from './project-switcher'
 import { ThemeSwitcher } from './theme/theme-switcher'
@@ -35,6 +36,7 @@ export async function Header() {
 
       <div className="flex items-center gap-4">
         <Separator orientation="vertical" className="h-5" />
+        <PendingInvites />
         <ThemeSwitcher />
         <ProfileButton />
       </div>
