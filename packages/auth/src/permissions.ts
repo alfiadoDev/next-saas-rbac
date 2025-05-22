@@ -18,12 +18,13 @@ export const permissions: Record<Role, PermissionsByRole> = {
     })
   },
   MEMBER: (user, { can }) => {
+    can('get', 'Project')
     can('get', 'User')
     can('create', 'Project')
     can(['update', 'delete'], 'Project', { ownerId: { $eq: user.id } })
   },
   // eslint-disable-next-line prettier/prettier
-  BILING: (_, { can }) => {
+  BILLING: (_, { can }) => {
     can('manage', 'Billing')
   },
 }
