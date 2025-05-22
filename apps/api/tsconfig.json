@@ -1,0 +1,15 @@
+{
+  "extends": "@saas/tsconfig/node",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "./@types/*.d.ts"
+  ]
+}
